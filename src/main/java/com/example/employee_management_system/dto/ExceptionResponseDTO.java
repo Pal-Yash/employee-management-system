@@ -3,14 +3,18 @@ package com.example.employee_management_system.dto;
 import java.time.LocalDateTime;
 
 public class ExceptionResponseDTO {
+
     private LocalDateTime timeStamp;
     private int statusCode;
     private String error;
     private String message;
     private String path;
 
-
-    public ExceptionResponseDTO(LocalDateTime timeStamp, int statusCode, String error, String message, String path) {
+    public ExceptionResponseDTO(LocalDateTime timeStamp,
+                                int statusCode,
+                                String error,
+                                String message,
+                                String path) {
         this.timeStamp = timeStamp;
         this.statusCode = statusCode;
         this.error = error;
@@ -30,16 +34,16 @@ public class ExceptionResponseDTO {
         return statusCode;
     }
 
+    public void setStatusCode(int statusCode) {
+        this.statusCode = statusCode;
+    }
+
     public String getError() {
         return error;
     }
 
     public void setError(String error) {
         this.error = error;
-    }
-
-    public void setStatusCode(int statusCode) {
-        this.statusCode = statusCode;
     }
 
     public String getMessage() {

@@ -1,16 +1,23 @@
 package com.example.employee_management_system.dto;
-import java.util.*;
+
 import java.time.LocalDateTime;
+import java.util.Map;
 
 public class ValidationExceptionResponseDTO {
+
     private LocalDateTime timeStamp;
     private int statusCode;
     private String error;
     private String message;
     private String path;
-    private Map<String,String> fieldErrors;
+    private Map<String, String> fieldErrors;
 
-    public ValidationExceptionResponseDTO(LocalDateTime timeStamp, int statusCode, String error, String message, String path, Map<String, String> fieldErrors) {
+    public ValidationExceptionResponseDTO(LocalDateTime timeStamp,
+                                          int statusCode,
+                                          String error,
+                                          String message,
+                                          String path,
+                                          Map<String, String> fieldErrors) {
         this.timeStamp = timeStamp;
         this.statusCode = statusCode;
         this.error = error;

@@ -8,7 +8,7 @@ public class UpdateEmployeeResponseDTO {
     private String department;
     private double salary;
     private String email;
-    private String message;
+
     private LocalDateTime updatedAt;
 
 
@@ -20,17 +20,6 @@ public class UpdateEmployeeResponseDTO {
         this.updatedAt = updatedAt;
     }
 
-
-
-
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 
     public String getDepartment() {
         return department;

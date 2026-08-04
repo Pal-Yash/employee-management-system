@@ -11,23 +11,23 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SwaggerConfig {
 
-        @Bean
-        public OpenAPI employeeManagementAPI() {
+    @Bean
+    public OpenAPI employeeManagementAPI() {
 
-            return new OpenAPI()
-                    .info(new Info()
-                            .title("Employee Management System API")
-                            .description("REST API for Employee Management System")
-                            .version("1.0")
-                            .contact(new Contact()
-                                    .name("Yogesh Pal")
-                                    .email("your-email@example.com"))
-                            .license(new License()
-                                    .name("Apache 2.0")
-                                    .url("https://www.apache.org/licenses/LICENSE-2.0")))
-                    .externalDocs(new ExternalDocumentation()
-                            .description("Project Documentation")
-                            .url("https://github.com/"));
-        }
+        return new OpenAPI()
+                .info(new Info()
+                        .title("Employee Management System API")
+                        .description("REST API for Employee Management System")
+                        .version("1.0")
+                        .contact(new Contact()
+                                .name("Yogesh Pal")
+                                .email("your-email@example.com"))
+                        .license(new License()
+                                .name("Apache 2.0")
+                                .url("https://www.apache.org/licenses/LICENSE-2.0")))
+                .externalDocs(new ExternalDocumentation()
+                        .description("Project Documentation")
+                        .url("https://github.com/"));
     }
+}
 

@@ -2,15 +2,24 @@ package com.example.employee_management_system.aspect;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
 public class LoggingAspect {
 
+    private static final Logger logger =
+            LoggerFactory.getLogger(LoggingAspect.class);
+
     @Pointcut("execution(* com.example.employee_management_system.service.*.*(..))")
-    public void serviceMethods(){}
+    public void serviceMethods() {
+    }
 
     @Around("serviceMethods()")
     public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -21,11 +30,11 @@ public class LoggingAspect {
 
         long endTime = System.currentTimeMillis();
 
-        System.out.println(
-                joinPoint.getSignature().getName()
-                        + " executed in "
-                        + (endTime - startTime)
-                        + " ms");
+        logger.info(
+                "Method {} executed in {} ms",
+                joinPoint.getSignature().getName(),
+                endTime - startTime
+        );
 
         return result;
     }
@@ -33,23 +42,12 @@ public class LoggingAspect {
     @AfterReturning("serviceMethods()")
     public void logSuccess(JoinPoint joinPoint) {
 
-        System.out.println(
-                "Method executed successfully : "
-                        + joinPoint.getSignature().getName());
+        logger.info(
+                "Method {} executed successfully",
+                joinPoint.getSignature().getName()
+        );
 
     }
 
-    @AfterThrowing(pointcut = "serviceMethods()", throwing = "exception")
-    public void logException(JoinPoint joinPoint, Exception exception) {
-
-        System.out.println(
-                "Exception in method : "
-                        + joinPoint.getSignature().getName());
-
-        System.out.println(
-                "Exception Message : "
-                        + exception.getMessage());
-
-    }
 
 }

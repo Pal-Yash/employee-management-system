@@ -8,7 +8,9 @@ public class CreateEmployeeResponseDTO {
     private String department;
     private double salary;
     private String email;
-    private String message;
+
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
@@ -26,15 +28,6 @@ public class CreateEmployeeResponseDTO {
         this.createdAt = createdAt;
     }
 
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 
     public String getDepartment() {
         return department;

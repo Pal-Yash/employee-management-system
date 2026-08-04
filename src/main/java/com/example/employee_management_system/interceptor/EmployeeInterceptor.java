@@ -1,13 +1,19 @@
 package com.example.employee_management_system.interceptor;
 
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 @Component
 public class EmployeeInterceptor implements HandlerInterceptor {
+
+    private static final Logger logger =
+            LoggerFactory.getLogger(EmployeeInterceptor.class);
 
     @Override
     public boolean preHandle(HttpServletRequest request,
@@ -16,11 +22,11 @@ public class EmployeeInterceptor implements HandlerInterceptor {
 
         HandlerMethod handlerMethod = (HandlerMethod) handler;
 
-        System.out.println("Controller : "
-                + handlerMethod.getBeanType().getSimpleName());
-
-        System.out.println("Method : "
-                + handlerMethod.getMethod().getName());
+        logger.info(
+                "Controller: {}, Method: {}",
+                handlerMethod.getBeanType().getSimpleName(),
+                handlerMethod.getMethod().getName()
+        );
 
         return true;
     }
@@ -32,7 +38,10 @@ public class EmployeeInterceptor implements HandlerInterceptor {
                            org.springframework.web.servlet.ModelAndView modelAndView)
             throws Exception {
 
-        System.out.println("Interceptor : After Controller");
+        logger.info(
+                "Controller execution completed for {}",
+                request.getRequestURI()
+        );
     }
 
     @Override
@@ -42,6 +51,10 @@ public class EmployeeInterceptor implements HandlerInterceptor {
                                 Exception ex)
             throws Exception {
 
-        System.out.println("Interceptor : Request Completed");
+        logger.info(
+                "Request completed for {} with status {}",
+                request.getRequestURI(),
+                response.getStatus()
+        );
     }
 }

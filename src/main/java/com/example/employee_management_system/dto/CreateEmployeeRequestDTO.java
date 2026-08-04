@@ -4,10 +4,10 @@ import jakarta.validation.constraints.*;
 
 public class CreateEmployeeRequestDTO {
     @NotBlank(message = "Name cannot be blank")
-    @Size(min=2, max=50, message ="Name should be of 2 to 50 characters")
+    @Size(min = 2, max = 50, message = "Name should be of 2 to 50 characters")
     private String name;
     @NotBlank(message = "Department cannot be blank")
-    @Size(min=2, max=50, message ="Department name should be of 2 to 50 characters")
+    @Size(min = 2, max = 50, message = "Department name should be of 2 to 50 characters")
     private String department;
     @Positive(message = "Salary cannot be negative")
     @NotNull(message = "Salary cannot be blank")
