@@ -6,7 +6,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import java.time.LocalDateTime;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import jakarta.persistence.EntityListeners;
 
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 public class EmployeeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,8 +22,10 @@ public class EmployeeEntity {
     private String department;
     private double salary;
     private String email;
-    private LocalDateTime createdAt;
 
+    @CreatedDate
+    private LocalDateTime createdAt;
+    @LastModifiedDate
     private LocalDateTime updatedAt;
 
     public LocalDateTime getUpdatedAt() {

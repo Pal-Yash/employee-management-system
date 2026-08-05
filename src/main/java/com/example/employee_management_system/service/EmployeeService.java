@@ -14,7 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -65,7 +64,7 @@ public class EmployeeService {
 
         employeeEntity.setEmail(updateEmployeeRequestDTO.getEmail());
         employeeEntity.setName(updateEmployeeRequestDTO.getName());
-        employeeEntity.setUpdatedAt(LocalDateTime.now());
+
         employeeRepository.save(employeeEntity);
         logger.info("Employee updated successfully with id {}", id);
         return mapToUpdateDTO(employeeEntity);
@@ -139,8 +138,7 @@ public class EmployeeService {
         employeeEntity.setDepartment(createEmployeeRequestDTO.getDepartment());
         employeeEntity.setEmail(createEmployeeRequestDTO.getEmail());
         employeeEntity.setDeleted(false);
-        employeeEntity.setUpdatedAt(LocalDateTime.now());
-        employeeEntity.setCreatedAt(LocalDateTime.now());
+
         return employeeEntity;
     }
 
@@ -153,7 +151,7 @@ public class EmployeeService {
         createEmployeeResponseDTO.setSalary(employeeEntity.getSalary());
         createEmployeeResponseDTO.setId(employeeEntity.getId());
         createEmployeeResponseDTO.setCreatedAt(employeeEntity.getCreatedAt());
-        createEmployeeResponseDTO.setUpdatedAt(employeeEntity.getUpdatedAt());
+       createEmployeeResponseDTO.setUpdatedAt(employeeEntity.getUpdatedAt());
 
         return createEmployeeResponseDTO;
     }
