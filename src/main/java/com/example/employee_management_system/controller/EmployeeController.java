@@ -19,7 +19,7 @@ import java.util.List;
 
 @Tag(name = "Employee APIs", description = "CRUD Operations for Employees")
 @RestController
-@RequestMapping("/api/employees")
+@RequestMapping("/api/v1/employees")
 public class EmployeeController {
     private final EmployeeService employeeService;
 

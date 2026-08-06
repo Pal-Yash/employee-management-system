@@ -1,5 +1,7 @@
 package com.example.employee_management_system.dto;
 
+
+import com.example.employee_management_system.enums.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
@@ -13,7 +15,8 @@ public class RegisterUserRequestDTO {
     private String password;
 
     @NotBlank(message = "Role is required")
-    private String role;
+    private Role role;
+
 
     public String getEmail() {
         return email;
@@ -31,11 +34,11 @@ public class RegisterUserRequestDTO {
         this.password = password;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 }

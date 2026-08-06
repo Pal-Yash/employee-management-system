@@ -1,6 +1,9 @@
 package com.example.employee_management_system.entity;
 
 import jakarta.persistence.*;
+import com.example.employee_management_system.enums.Role;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 
 @Entity
 @Table(name = "users")
@@ -16,8 +19,9 @@ public class UserEntity {
     @Column(nullable = false)
     private String password;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String role;
+    private Role role;
 
     public UserEntity() {
     }
@@ -46,11 +50,11 @@ public class UserEntity {
         this.password = password;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 }

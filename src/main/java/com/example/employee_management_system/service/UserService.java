@@ -4,16 +4,37 @@ import com.example.employee_management_system.dto.RegisterUserRequestDTO;
 import com.example.employee_management_system.dto.RegisterUserResponseDTO;
 import com.example.employee_management_system.entity.UserEntity;
 import com.example.employee_management_system.exception.DuplicateResourceException;
+import com.example.employee_management_system.exception.InvalidCredentialsException;
 import com.example.employee_management_system.exception.ResourceNotFoundException;
 import com.example.employee_management_system.repository.UserRepository;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.example.employee_management_system.dto.LoginRequestDTO;
 import com.example.employee_management_system.dto.LoginResponseDTO;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
+
+    @Override
+    public UserDetails loadUserByUsername(String email)
+            throws UsernameNotFoundException {
+
+        UserEntity user = userRepository.findByEmail(email)
+                .orElseThrow(() ->
+                        new UsernameNotFoundException(
+                                "User not found with email " + email));
+
+        return User.builder()
+                .username(user.getEmail())
+                .password(user.getPassword())
+                .roles(user.getRole().name())
+                .build();
+    }
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
@@ -71,11 +92,10 @@ public class UserService {
 
         UserEntity user = userRepository.findByEmail(dto.getEmail())
                 .orElseThrow(() ->
-                        new ResourceNotFoundException(
-                                "User with email " + dto.getEmail() + " not found"));
+                        new InvalidCredentialsException("Invalid email or password"));
 
         if (!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
-            throw new RuntimeException("Invalid email or password");
+            throw new InvalidCredentialsException("Invalid email or password");
         }
 
         String token = jwtService.generateToken(user.getEmail());

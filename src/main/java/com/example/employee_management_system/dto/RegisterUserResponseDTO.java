@@ -1,10 +1,12 @@
 package com.example.employee_management_system.dto;
 
+import com.example.employee_management_system.enums.Role;
+
 public class RegisterUserResponseDTO {
 
     private Long id;
     private String email;
-    private String role;
+    private Role role;
 
     public Long getId() {
         return id;
@@ -22,11 +24,11 @@ public class RegisterUserResponseDTO {
         this.email = email;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 }

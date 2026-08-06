@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
+import com.example.employee_management_system.exception.InvalidCredentialsException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -103,5 +103,25 @@ public class GlobalExceptionHandler {
                 );
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+    }
+
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ResponseEntity<ExceptionResponseDTO> handleInvalidCredentialsException(
+            InvalidCredentialsException ex,
+            HttpServletRequest request) {
+
+        logger.warn("Invalid login attempt: {}", ex.getMessage());
+
+        ExceptionResponseDTO response = new ExceptionResponseDTO(
+                LocalDateTime.now(),
+                HttpStatus.UNAUTHORIZED.value(),
+                HttpStatus.UNAUTHORIZED.getReasonPhrase(),
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(response);
     }
 }
